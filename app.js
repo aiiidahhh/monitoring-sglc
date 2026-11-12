@@ -237,7 +237,7 @@
           g.scene.traverse(o => { if (o.isMesh) [].concat(o.material).forEach(m => { m.side = THREE.DoubleSide; m.needsUpdate = true; }); });
           scene.add(g.scene); onLoaded(); m.triggerRepaint(); };
         const bad = () => say('3D model failed to load – showing the simple box instead.');
-        const b64 = window.SGLC_MODEL_B64;
+        const b64 = cfg.url ? null : window.SGLC_MODEL_B64;      // kalau ada url, pakai file .glb (model.js lama diabaikan)
         if (b64) { const bin = atob(b64), buf = new Uint8Array(bin.length);
           for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
           new THREE.GLTFLoader().parse(buf.buffer, '', ok, bad); }
